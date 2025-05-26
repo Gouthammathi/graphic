@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from 'react';
 
 const Home = () => {
   useEffect(() => {
@@ -15,6 +15,13 @@ const Home = () => {
     };
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflowX = 'hidden';
+    document.documentElement.style.overflowX = 'hidden';
+    document.body.style.width = '100vw';
+    document.documentElement.style.width = '100vw';
+  }, []);
+
   const backgroundStyle = {
     backgroundImage: "url('/bg.jpg'), url('/bg.jpg')",
     backgroundSize: 'cover, cover',
@@ -25,7 +32,7 @@ const Home = () => {
     margin: 0,
     padding: 0,
     display: 'flex',
-    justifyContent: 'flex',
+    justifyContent: 'flex-start',
     alignItems: 'flex-start',
     flexDirection: 'column',
   };
@@ -40,25 +47,15 @@ const Home = () => {
     'A': '/name/A.png',
     'M': '/name/M.png',
     'flash': '/name/flash.png',
-    'star': '/assets/star.png'
+    'star': '/assets/star.png',
   };
 
   return (
     <div style={backgroundStyle}>
-      {/* Video at the top */}
-      <img
-        src="/assets/image.png"
-        
-        style={{
-          width: '100%',
-          maxHeight: '24vw',
-          objectFit: 'cover',
-          display: 'block',
-          marginBottom: '2vw',
-        }}
-      />
-      {/* Sky image at the top */}
+      {/* Top Banner Image */}
       
+
+      {/* Name Section */}
       <div
         style={{
           position: 'relative',
@@ -87,7 +84,8 @@ const Home = () => {
             zIndex: 10,
           }}
         />
-        {/* Name and flash images */}
+
+        {/* Name letter images */}
         {name.split('').map((letter, idx, arr) => {
           const isAafterH = letter === 'A' && arr[idx - 1] === 'H';
           return (
@@ -108,20 +106,37 @@ const Home = () => {
             />
           );
         })}
+
+        {/* Flash image at the end */}
         <img
           src={letterImages['flash']}
           alt="flash"
           style={{
             height: '10vw',
             width: 'auto',
-            minHeight: '48px',
-            maxHeight: '120px',
+            minHeight: '32px',
+            maxHeight: '80px',
             borderRadius: '8px',
             marginLeft: '1vw',
-            transform: 'rotate(9deg)'
+            transform: 'rotate(9deg)',
+            maxWidth: '100vw',
+            boxSizing: 'border-box',
           }}
         />
       </div>
+      {/* Your image under the name */}
+      <img
+        src="/me.png"
+        alt="Me"
+        style={{
+          display: 'block',
+          margin: '2vw auto 0 auto',
+          width: '100vw',
+          maxWidth: '300px',
+          // borderRadius: '32px',
+          // boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
+        }}
+      />
     </div>
   );
 };
