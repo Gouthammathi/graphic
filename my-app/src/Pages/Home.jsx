@@ -52,91 +52,107 @@ const Home = () => {
 
   return (
     <div style={backgroundStyle}>
-      {/* Top Banner Image */}
-      
-
-      {/* Name Section */}
+      {/* Flex container to hold name and image side by side */}
       <div
         style={{
-          position: 'relative',
           display: 'flex',
-          gap: '2vw',
-          alignItems: 'center',
-          marginTop: '4vw',
-          marginLeft: 'auto',
-          marginRight: 'auto',
+          justifyContent: 'space-between',
+          alignItems: 'flex-start',
+          width: '100%',
+          padding: '4vw',
+          boxSizing: 'border-box',
           flexWrap: 'wrap',
-          justifyContent: 'center',
         }}
       >
-        {/* Star image as TM mark */}
-        <img
-          src={letterImages['star']}
-          alt="star"
+        {/* Left: Name Section */}
+        <div
           style={{
-            position: 'absolute',
-            top: '-3vw',
-            right: '-6vw',
-            height: '6vw',
-            width: '6vw',
-            minHeight: '32px',
-            minWidth: '32px',
-            zIndex: 10,
+            position: 'relative',
+            display: 'flex',
+            gap: '2vw',
+            alignItems: 'flex-start',
+            flexWrap: 'wrap',
+            justifyContent: 'flex-start',
+            maxWidth: '60%',
           }}
-        />
+        >
+          {/* Star image as TM mark */}
+          <img
+            src={letterImages['star']}
+            alt="star"
+            style={{
+              position: 'absolute',
+              top: '-3vw',
+              right: '-6vw',
+              height: '6vw',
+              width: '6vw',
+              minHeight: '32px',
+              minWidth: '32px',
+              zIndex: 10,
+            }}
+          />
 
-        {/* Name letter images */}
-        {name.split('').map((letter, idx, arr) => {
-          const isAafterH = letter === 'A' && arr[idx - 1] === 'H';
-          return (
-            <img
-              key={idx}
-              src={letterImages[letter]}
-              alt={letter}
-              style={{
-                height: '10vw',
-                width: 'auto',
-                minHeight: '48px',
-                maxHeight: '120px',
-                borderRadius: '8px',
-                transform: `rotate(${(idx % 2 === 0 ? 1 : -1) * (5 + idx * 2)}deg)`,
-                marginLeft: isAafterH ? '1vw' : undefined,
-                marginRight: '0.5vw',
-              }}
-            />
-          );
-        })}
+          {/* Name letter images */}
+          {name.split('').map((letter, idx, arr) => {
+            const isAafterH = letter === 'A' && arr[idx - 1] === 'H';
+            // Add randomization for floating effect
+            const randomRotation = Math.floor(Math.random() * 30 - 15); // -15 to 15 degrees
+            const randomMarginTop = Math.floor(Math.random() * 30); // 0 to 30px
+            const randomMarginLeft = Math.floor(Math.random() * 20); // 0 to 20px
+            const randomScale = 0.9 + Math.random() * 0.2; // Scale between 0.9 to 1.1
+            return (
+              <img
+                key={idx}
+                src={letterImages[letter]}
+                alt={letter}
+                style={{
+                  height: '10vw',
+                  width: 'auto',
+                  minHeight: '48px',
+                  maxHeight: '120px',
+                  borderRadius: '8px',
+                  marginLeft: isAafterH ? '1vw' : `${randomMarginLeft}px`,
+                  marginTop: `${randomMarginTop}px`,
+                  transform: `rotate(${randomRotation}deg) scale(${randomScale})`,
+                  zIndex: 1,
+                  float: 'left',
+                }}
+              />
+            );
+          })}
 
-        {/* Flash image at the end */}
+          {/* Flash image at the end */}
+          <img
+            src={letterImages['flash']}
+            alt="flash"
+            style={{
+              height: '10vw',
+              width: 'auto',
+              minHeight: '32px',
+              maxHeight: '80px',
+              borderRadius: '8px',
+              marginLeft: '1vw',
+              transform: 'rotate(9deg)',
+              maxWidth: '100vw',
+              boxSizing: 'border-box',
+            }}
+          />
+        </div>
+
+        {/* Right: Image Section */}
         <img
-          src={letterImages['flash']}
-          alt="flash"
+          src="/me.png"
+          alt="Me"
           style={{
-            height: '10vw',
-            width: 'auto',
-            minHeight: '32px',
-            maxHeight: '80px',
-            borderRadius: '8px',
-            marginLeft: '1vw',
-            transform: 'rotate(9deg)',
-            maxWidth: '100vw',
-            boxSizing: 'border-box',
+            height: 'auto',
+            width: '100%',
+            maxWidth: '300px',
+            marginTop: '1vw',
+            display: 'block',
+            borderRadius: '12px',
           }}
         />
       </div>
-      {/* Your image under the name */}
-      <img
-        src="/me.png"
-        alt="Me"
-        style={{
-          display: 'block',
-          margin: '2vw auto 0 auto',
-          width: '100vw',
-          maxWidth: '300px',
-          // borderRadius: '32px',
-          // boxShadow: '0 4px 16px rgba(0,0,0,0.15)',
-        }}
-      />
     </div>
   );
 };
